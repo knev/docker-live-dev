@@ -3,8 +3,8 @@ RUN apt-get update && apt-get install -y sudo g++ vim git
 
 ARG hostgid
 ARG hostgrp
-RUN groupdel `cat /etc/group | grep $hostgid | cut -d: -f1`
-RUN groupdel $hostgrp
+RUN getent group $hostgid >/dev/null && groupdel `getent group $hostgid | cut -d: -f1`
+RUN getent group $hostgrp >/dev/null && groupdel $hostgrp
 RUN groupadd -g $hostgid $hostgrp
 
 ARG hostuser

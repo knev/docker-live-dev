@@ -26,6 +26,6 @@ run-devi-local: build-devi
 	--security-opt seccomp=unconfined \
 	-e DISPLAY=${DISPLAY} \
 	-u $(shell id -u ${USER} ):$(shell id -g ${USER} ) \
-	-w ${HOME} \
+	-w ${PWD} \
 	devi
 
