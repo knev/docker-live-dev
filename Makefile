@@ -1,6 +1,6 @@
 # Dan Gitschooldude : 037 Develop Software Inside a Docker Container : https://www.youtube.com/watch?v=vME5H51UULw
 
-.PHONY: all clean build-devi run-devi run-devi-local
+.PHONY: all clean devi-build devi-run devi-run-local
 
 all:
 	g++ -Wall -O0 -g -o hello hello.cpp box.cpp
@@ -8,7 +8,7 @@ all:
 clean:
 	rm -f hello
 
-build-devi:
+devi-build:
 	docker build \
 	--build-arg hostuser=$(shell whoami) \
 	--build-arg hostuid=$(shell id -u) \
@@ -16,10 +16,10 @@ build-devi:
 	--build-arg hostgrp=$(shell id -g -n) \
 	-t devi devi
 
-run-devi: build-devi
+devi-run: devi-build
 	docker run -it --rm devi
 
-run-devi-local: build-devi
+devi-run-local: devi-build
 	docker run -ti --rm \
 	-e HOME=${HOME} \
 	-v "${HOME}:${HOME}/" \
